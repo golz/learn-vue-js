@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Goldwin</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" placeholder="Input name" v-model="name" required>
+        <input type="text" placeholder="Input description" v-model="description" required>
+        <input type="number" placeholder="Input quantity" v-model="quantity" step=1 min=0 max=100>
+        <input type="button" value="Add" v-on:click="addItem">
+        <br> <br>
+        <input type="text" placeholder="Search" v-model="search">
+        <table border="1" v-if="showedItems.length > 0">
+          <tr>
+            <th v-for="(field, key) in fields">{{ field.name }} <button v-if="field.sortable" v-on:click="sortBy(key)"><span v-if="field.type=='up'">&uarr;</span><span v-else="field.type=='down">&darr;</span></button></th>
+          </tr>
+          <tr v-for="item in showedItems">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.quantity }}</td>
+            <td><input type="button" v-on:click="removeItem(item.id)" value="X"></td>
+          </tr>
+        </table>
+        <div v-else="showedItems.length > 0">There is no item</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
